@@ -14,7 +14,7 @@ function Invoke-PveAction {
         $MkDocsOutputPath = ".\doc\mkdocs\docs"
         $MarkdownSourcePath = ".\doc\markdown"
         $modulePath = ".\Corsinvest.ProxmoxVE.Api\Corsinvest.ProxmoxVE.Api.psd1"
-
+        Set-Location $PSScriptRoot
         if ($Action -eq 'analyzer') {
             Import-Module PSScriptAnalyzer
             Get-ChildItem -Path Corsinvest.ProxmoxVE.Api -Filter "*.psm1" -Recurse | Invoke-ScriptAnalyzer -ExcludeRule PSUseSingularNouns
@@ -32,8 +32,17 @@ function Invoke-PveAction {
             New-MarkdownHelp -Module Corsinvest.ProxmoxVE.Api -OutputFolder $MarkdownSourcePath -Force
         }
         elseif ($Action -eq 'create-doc-mkdocs') {
-            Write-Host "Starting MkDocs documentation generation..." -ForegroundColor Cyan
 
+            Write-Host "Starting MkDocs documentation generation..." -ForegroundColor Cyan
+            Try
+            {
+                Get-Command mkdocs -ErrorAction Stop
+            }
+            Catch
+            {
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                return
+            }
             # Process PlatyPS markdown files (generate index only, no copy)
             Write-Host "Processing cmdlet documentation..." -ForegroundColor Cyan
             $markdownFiles = Get-ChildItem -Path $MarkdownSourcePath -Filter "*.md" | Where-Object { $_.Name -notlike "about_*" }
@@ -106,6 +115,15 @@ This page provides a complete reference of all cmdlets available in the cv4pve-a
             Write-Host "  Open http://127.0.0.1:8000" -ForegroundColor White
         }
         elseif ($Action -eq 'build-doc-mkdocs') {
+            Try
+            {
+                Get-Command mkdocs -ErrorAction Stop
+            }
+            Catch
+            {
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                return
+            }
             # Build static site
             Push-Location ".\doc\mkdocs"
             try {
@@ -119,6 +137,15 @@ This page provides a complete reference of all cmdlets available in the cv4pve-a
             }
         }
         elseif ($Action -eq 'serve-doc-mkdocs') {
+            Try
+            {
+                Get-Command mkdocs -ErrorAction Stop
+            }
+            Catch
+            {
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                return
+            }
             Write-Host "Starting MkDocs server..." -ForegroundColor Cyan
             Push-Location ".\doc\mkdocs"
             try {
