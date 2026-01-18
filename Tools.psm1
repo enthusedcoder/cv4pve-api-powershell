@@ -40,7 +40,7 @@ function Invoke-PveAction {
             }
             Catch
             {
-                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor Red
                 return
             }
             # Process PlatyPS markdown files (generate index only, no copy)
@@ -121,7 +121,7 @@ This page provides a complete reference of all cmdlets available in the cv4pve-a
             }
             Catch
             {
-                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor Red
                 return
             }
             # Build static site
@@ -143,7 +143,7 @@ This page provides a complete reference of all cmdlets available in the cv4pve-a
             }
             Catch
             {
-                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor DarkRed
+                Write-Host "You need to install `"mkdocs`" in order for this action to work.  To install mkdocs, make sure python is installed and run `"pip install mkdocs`" in a command prompt." -ForegroundColor Red
                 return
             }
             Write-Host "Starting MkDocs server..." -ForegroundColor Cyan
